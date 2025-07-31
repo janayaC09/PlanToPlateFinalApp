@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct FirstPage: View {
+
     //For the percent bar
     @State var percent: CGFloat = 20
     //For the selected diet array
@@ -18,9 +19,7 @@ struct FirstPage: View {
         NavigationStack {
             ZStack {
                 //background image
-                Image("Plan to Plate Background")
-                    .resizable()
-                    .edgesIgnoringSafeArea(.all)
+                BackgroundView()
                 
                 VStack {                    VStack(spacing: 10) {
                         Text("\(Int(percent))%")
@@ -39,7 +38,6 @@ struct FirstPage: View {
                     
                     Spacer()
                     
-                    // Dropdowns
                     VStack(spacing: 20) {
                         DropdownMenuMultiSelect(
                             selectedOptions: $selectedDiet,
@@ -64,6 +62,7 @@ struct FirstPage: View {
                                 allergiesSelected = true
                             }
                         }
+                        
                         //Goals aspect
                         VStack(alignment: .leading, spacing: 8) {
                             Text("Goals:")
@@ -109,6 +108,6 @@ struct FirstPage: View {
     }
 }
 #Preview {
-    Home()
+    FirstPage()
 }
 
