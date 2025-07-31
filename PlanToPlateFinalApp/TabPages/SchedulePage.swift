@@ -10,22 +10,26 @@ struct WeeklyScheduleView: View {
     ]
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 20) {
-            Text("Your Meal Plan")
-                .foregroundColor(.white)
-                .multilineTextAlignment(.center)
-                .font(.custom("InriaSans-Bold", size: 35))
-                .padding(.top, 30)
-                .padding(.bottom, 20)
-                .frame(maxWidth: .infinity)
-
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 20) {
-                    ForEach(daysOfWeek, id: \.self) { day in
-                        DayScheduleView(day: day, meals: meals)
+        ZStack {
+            BackgroundView()
+            VStack(alignment: .leading, spacing: 20) {
+                
+                Text("Your Meal Plan")
+                    .foregroundColor(.white)
+                    .multilineTextAlignment(.center)
+                    .font(.custom("InriaSans-Bold", size: 35))
+                    .padding(.top, 30)
+                    .padding(.bottom, 20)
+                    .frame(maxWidth: .infinity)
+                
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 20) {
+                        ForEach(daysOfWeek, id: \.self) { day in
+                            DayScheduleView(day: day, meals: meals)
+                        }
                     }
+                    .padding(.horizontal, 20)
                 }
-                .padding(.horizontal, 20)
             }
         }
     }
@@ -56,11 +60,11 @@ struct DayScheduleView: View {
                 }
             }
 
-            //Spacer()
+          
         }
-        //.padding()
+       
         .frame(width: 350,height: 600)
-        .background(Color.cyan.opacity(0.9))
+        .background(Color.cyan)
         .clipShape(RoundedRectangle(cornerRadius: 20))
     }
 }
