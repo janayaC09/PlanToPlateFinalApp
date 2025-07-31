@@ -26,9 +26,7 @@ struct SecondPage: View {
     var body: some View {
         NavigationStack{
             ZStack {
-                Image("Plan to Plate Background")
-                    .resizable()
-                    .edgesIgnoringSafeArea(.all)
+                BackgroundView()
                 
                 VStack {
                     // Top progress + title
