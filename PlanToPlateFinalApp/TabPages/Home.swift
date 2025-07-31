@@ -1,50 +1,70 @@
 import SwiftUI
 
 struct Home: View {
-    @State private var selectedTab: tab = .home
+    init() {
+            let appearance = UITabBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            appearance.backgroundColor = UIColor.systemIndigo
+
+            // Unselected = White
+            appearance.stackedLayoutAppearance.normal.iconColor = .white
+            appearance.stackedLayoutAppearance.normal.titleTextAttributes = [
+                .foregroundColor: UIColor.white
+            ]
+            
+            // Selected = Gray
+            appearance.stackedLayoutAppearance.selected.iconColor = .cyan
+            appearance.stackedLayoutAppearance.selected.titleTextAttributes = [
+                .foregroundColor: UIColor.cyan
+            ]
+
+            // Apply appearance
+            UITabBar.appearance().standardAppearance = appearance
+            if #available(iOS 15.0, *) {
+                UITabBar.appearance().scrollEdgeAppearance = appearance
+            }
+        }
 
     var body: some View {
         ZStack {
             // Background image
-            Image("Plan to Plate Background")
-                .resizable()
-                .scaledToFill()
-                .ignoresSafeArea()
-
-            VStack {
-                ZStack {
-                    switch selectedTab {
-                    case .home:
-                        HomePageScroll()
-                        
-                    case .schedule:
-                            WeeklyScheduleView()
-                       
-                    case .saved:
-                        Text("Saved Page")
-                            .font(.largeTitle)
-                            .foregroundColor(.white)
-
-                    case .pantry:
-                        Text("Pantry Scanner")
-                            .font(.largeTitle)
-                            .foregroundColor(.white)
-
-                    case .tracker:
-                        Text("Tracker Page")
-                            .font(.largeTitle)
-                            .foregroundColor(.white)
-                    }
+            BackgroundView()
+                
+                TabView{
+                    HomePageScroll()
+                        .tabItem{
+                            Image(systemName: "house")
+                            Text("Home")
+                        }
+                    WeeklyScheduleView()
+                        .tabItem{
+                            Image(systemName: "calendar")
+                            Text("Schedule")
+                        }
+                    Saved()
+                        .tabItem{
+                            Image(systemName: "heart")
+                            Text("Saved")
+                        }
+                    Pantry()
+                        .tabItem{
+                            Image(systemName: "book.fill")
+                            Text("Pantry")
+                        }
+                    Tracker()
+                        .tabItem{
+                            Image(systemName: "pencil")
+                            Text("Tracker")
+                        }
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-
-                // Floating Custom Tab Bar
-                TabBar(selectedTab: $selectedTab)
-                    .padding(.bottom, 25)
+                
+                
+                
+                
             }
         }
     }
-}
+    
 
 #Preview {
     Home()
